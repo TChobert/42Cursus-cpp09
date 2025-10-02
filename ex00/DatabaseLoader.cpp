@@ -1,13 +1,14 @@
 #include "DatabaseLoader.hpp"
 
-DatabaseLoader::DatabaseLoader(void) {}
+DatabaseLoader::DatabaseLoader(IParser& DBparser) : _DBparser(DBparser) {}
 
-DatabaseLoader::DatabaseLoader(const DatabaseLoader& other){}
+DatabaseLoader::DatabaseLoader(const DatabaseLoader& other) : _DBparser(other._DBparser) {}
 
 DatabaseLoader::~DatabaseLoader(void) {}
 
 DatabaseLoader& DatabaseLoader::operator=(const DatabaseLoader& other) {
 	if (this != &other) {
+		this->_DBparser = other._DBparser;
 		return (*this);
 	}
 }
@@ -35,8 +36,19 @@ std::map<std::string, double> DatabaseLoader::loadDatabase(const std::string& fi
 		std::string valueStr;
 
 		if (std::getline(ss, date, ',') && std::getline(ss, valueStr)) {
-			double value = std::strtod(valueStr.c_str(), NULL);
-			DBcontent[date] = value;
+
+			if (!_DBparser.isValidDate(date) || !_DBparser.isValidValue(valueStr)) {
+				std::cerr << "Invalid line in DataBase ignored => " << currLine << std::endl; 
+			} else {
+
+				double value = std::strtod(valueStr.c_str(), NULL);
+				std::pair<std::map<std::string,double>::iterator, bool> res;
+				res = DBcontent.insert(std::make_pair(date, value));
+
+				if (!res.second) {
+					std::cerr << "Warning: duplicate date ignored => " << date << std::endl;
+				}
+			}
 		}
 	}
 	return (DBcontent);

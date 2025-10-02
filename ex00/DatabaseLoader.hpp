@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DatabaseParser.hpp"
+
 #include <iostream>
 #include <map>
 #include <cstdlib>
@@ -11,9 +13,13 @@
 
 class DatabaseLoader {
 
+	private:
+
+	IParser& _DBparser;
+
 	public:
 
-	DatabaseLoader(void);
+	DatabaseLoader(IParser& DBparser);
 	DatabaseLoader(const DatabaseLoader& other);
 	DatabaseLoader& operator=(const DatabaseLoader& other);
 	~DatabaseLoader(void);
