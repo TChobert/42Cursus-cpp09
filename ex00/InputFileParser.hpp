@@ -11,6 +11,11 @@ class InputFileParser : public IParser {
 
 	private:
 
+	bool isValidDate(const std::string& dateStr);
+	bool isValidValue(const std::string& value);
+
+	public:
+
 	InputFileParser(void);
 	InputFileParser(const InputFileParser& other);
 	InputFileParser& operator=(const InputFileParser& other);
@@ -19,9 +24,4 @@ class InputFileParser : public IParser {
 	bool checkYearValue(const std::string& yearStr);
 	bool checkMonthValue(const std::string& monthStr);
 	bool checkDayValue(const std::string& dayStr);
-
-	public:
-
-	bool isValidDate(const std::string& dateStr);
-	bool isValidValue(const std::string& value);
 };

@@ -7,9 +7,8 @@ DatabaseParser::DatabaseParser(const DatabaseParser& other) {}
 DatabaseParser::~DatabaseParser(void) {}
 
 DatabaseParser& DatabaseParser::operator=(const DatabaseParser &other) {
-	if (this != &other) {
-		return (*this);
-	}
+	if (this != &other) {}
+	return (*this);
 }
 
 bool DatabaseParser::checkDayValue(const std::string& dayStr) {

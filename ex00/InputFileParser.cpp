@@ -5,9 +5,8 @@ InputFileParser::InputFileParser(void) {}
 InputFileParser::InputFileParser(const InputFileParser& other) {}
 
 InputFileParser& InputFileParser::operator=(const InputFileParser& other) {
-	if (this != &other) {
-		return (*this);
-	}
+	if (this != &other) {}
+	return (*this);
 }
 
 InputFileParser::~InputFileParser(void) {}

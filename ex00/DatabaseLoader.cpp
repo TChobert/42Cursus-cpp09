@@ -9,8 +9,8 @@ DatabaseLoader::~DatabaseLoader(void) {}
 DatabaseLoader& DatabaseLoader::operator=(const DatabaseLoader& other) {
 	if (this != &other) {
 		this->_DBparser = other._DBparser;
-		return (*this);
 	}
+	return (*this);
 }
 
 std::map<std::string, double> DatabaseLoader::loadDatabase(const std::string& file) {
@@ -46,7 +46,7 @@ std::map<std::string, double> DatabaseLoader::loadDatabase(const std::string& fi
 				res = DBcontent.insert(std::make_pair(date, value));
 
 				if (!res.second) {
-					std::cerr << "Warning: duplicate date ignored => " << date << std::endl;
+					std::cerr << "Warning: duplicate date in DataBase ignored => " << date << std::endl;
 				}
 			}
 		}

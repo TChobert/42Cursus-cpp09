@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cstdlib>
+
+#include "DatabaseLoader.hpp"
+#include "DatabaseParser.hpp"
+#include "InputFileLoader.hpp"
+#include "InputFileParser.hpp"
+
+int main (int ac, char **av) {
+
+	if (ac != 2) {
+		std::cerr << "Error! Usage: ./btc <input file>" << std::endl;
+		return (EXIT_FAILURE);
+	}
+
+	std::map<std::string, double> inputFileValues;
+	std::map<std::string, double> dataBaseValues;
+
+	InputFileParser IFparser;
+	InputFileLoader IFloader(IFparser);
+	DatabaseParser DBparser;
+	DatabaseLoader DBloader(DBparser);
+
+	try {
+		inputFileValues = IFloader.loadInput(av[1]);
+		dataBaseValues = DBloader.loadDatabase("path to DB");
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		return (EXIT_FAILURE);
+	}
+
+	return (EXIT_SUCCESS);
+}
