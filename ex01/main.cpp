@@ -5,6 +5,15 @@
 #include <cstdlib>
 #include <cctype>
 
+int printError(std::string message) {
+
+	if (!(message.empty()))
+		std::cerr << "Error: " << message << std::endl;
+	else
+		std::cerr << "Error" << std::endl;
+	return (EXIT_FAILURE);
+}
+
 bool isNumber(const std::string& token) {
 
 	if (token.empty())
@@ -34,9 +43,8 @@ int main(int ac, char **av) {
 		if (token == "+" || token == "-" || token == "*" || token == "/") {
 
 			if (stack.size() < 2) {
-				std::cerr << "Error" << std::endl;
-				return (EXIT_FAILURE);
-		}
+				return (printError(""));
+			}
 
 			int b = stack.top(); stack.pop();
 			int a = stack.top(); stack.pop();
@@ -47,8 +55,7 @@ int main(int ac, char **av) {
 			else if (token == "*") res = a * b;
 			else {
 				if (b == 0) {
-					std::cerr << "Error: division by 0." << std::endl;
-					return (EXIT_FAILURE);
+					return (printError("division by 0."));
 				}
 				res = a / b;
 			}
@@ -59,19 +66,16 @@ int main(int ac, char **av) {
 
 			int num = std::atoi(token.c_str());
 			if (num >= 10) {
-				std::cerr << "Error:" << token << " is a too large number." << std::endl;
-				return (EXIT_FAILURE);
-		}
+				return (printError(token + " is a too large number."));
+			}
 			stack.push(num);
 		} else {
-			std::cerr << "Error " << token << " is not a number." << std::endl;
-			return (EXIT_FAILURE);
+			return (printError( token + " is not a number."));
 		}
 	}
 
 	if (stack.size() != 1) {
-		std::cerr << "Error" << std::endl;
-		return (EXIT_FAILURE);
+		return (printError(""));
 	}
 
 	std::cout << stack.top() << std::endl;
