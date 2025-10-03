@@ -5,6 +5,7 @@
 #include "DatabaseParser.hpp"
 #include "InputFileLoader.hpp"
 #include "InputFileParser.hpp"
+#include "ValuesCalculator.hpp"
 
 int main (int ac, char **av) {
 
@@ -29,6 +30,9 @@ int main (int ac, char **av) {
 		std::cerr << e.what() << std::endl;
 		return (EXIT_FAILURE);
 	}
+
+	ValuesCalculator calculator;
+	calculator.calculateValues(dataBaseValues, inputFileValues);
 
 	return (EXIT_SUCCESS);
 }

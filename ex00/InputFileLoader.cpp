@@ -11,6 +11,21 @@ InputFileLoader& InputFileLoader::operator=(const InputFileLoader& other) {
 	return (*this);
 }
 
+void InputFileLoader::trimSpaces(std::string& str) {
+
+	if (str.empty())
+		return;
+
+	size_t begin = str.find_first_not_of(' ');
+	size_t end   = str.find_last_not_of(' ');
+
+	if (begin == std::string::npos) {
+		str.clear();
+	} else {
+		str = str.substr(begin, end - begin + 1);
+	}
+}
+
 InputFileLoader::~InputFileLoader(void) {}
 
 std::map<std::string, double> InputFileLoader::loadInput(const std::string& file) {
@@ -34,6 +49,8 @@ std::map<std::string, double> InputFileLoader::loadInput(const std::string& file
 
 		if (std::getline(ss, date, '|') && std::getline(ss, valueStr)) {
 
+			trimSpaces(date);
+			trimSpaces(valueStr);
 			if (!_parser.isValidDate(date) || !_parser.isValidValue(valueStr)) {
 				std::cerr << "Invalid line in input ignored => " << currLine << std::endl;
 			} else {
@@ -50,7 +67,6 @@ std::map<std::string, double> InputFileLoader::loadInput(const std::string& file
 	}
 	return (inputContent);
 }
-
 
 // EXCEPTIONS
 

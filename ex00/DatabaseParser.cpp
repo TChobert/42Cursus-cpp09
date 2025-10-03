@@ -2,7 +2,9 @@
 
 DatabaseParser::DatabaseParser(void) {}
 
-DatabaseParser::DatabaseParser(const DatabaseParser& other) {}
+DatabaseParser::DatabaseParser(const DatabaseParser& other) {
+	(void)other;
+}
 
 DatabaseParser::~DatabaseParser(void) {}
 
@@ -11,7 +13,7 @@ DatabaseParser& DatabaseParser::operator=(const DatabaseParser &other) {
 	return (*this);
 }
 
-bool DatabaseParser::checkDayValue(const std::string& dayStr) {
+bool DatabaseParser::checkDayValue(const std::string& dayStr) const {
 
 	if (dayStr.length() != 2)
 		return (false);
@@ -25,7 +27,7 @@ bool DatabaseParser::checkDayValue(const std::string& dayStr) {
 	return (true);
 }
 
-bool DatabaseParser::checkMonthValue(const std::string& monthStr) {
+bool DatabaseParser::checkMonthValue(const std::string& monthStr) const {
 
 	if (monthStr.length() != 2)
 		return (false);
@@ -39,7 +41,7 @@ bool DatabaseParser::checkMonthValue(const std::string& monthStr) {
 	return (true);
 }
 
-bool DatabaseParser::checkYearValue(const std::string& yearStr) {
+bool DatabaseParser::checkYearValue(const std::string& yearStr) const {
 
 	if (yearStr.length() != 4)
 		return (false);
@@ -52,7 +54,7 @@ bool DatabaseParser::checkYearValue(const std::string& yearStr) {
 	return (true);
 }
 
-bool DatabaseParser::isValidDate(const std::string& dateStr) {
+bool DatabaseParser::isValidDate(const std::string& dateStr) const {
 
 	std::string yearStr, monthStr, dayStr;
 	char sep1, sep2;
@@ -71,7 +73,7 @@ bool DatabaseParser::isValidDate(const std::string& dateStr) {
 	return (true);
 }
 
-bool DatabaseParser::isValidValue(const std::string& valueStr) {
+bool DatabaseParser::isValidValue(const std::string& valueStr) const {
 
 	char *end = NULL;
 	double value = strtod(valueStr.c_str(), &end);

@@ -6,13 +6,14 @@
 #include <string>
 #include <map>
 #include <sstream>
+#include <cstdlib>
 
 class InputFileParser : public IParser {
 
 	private:
 
-	bool isValidDate(const std::string& dateStr);
-	bool isValidValue(const std::string& value);
+	bool isValidDate(const std::string& dateStr) const;
+	bool isValidValue(const std::string& value) const;
 
 	public:
 
@@ -21,7 +22,7 @@ class InputFileParser : public IParser {
 	InputFileParser& operator=(const InputFileParser& other);
 	~InputFileParser(void);
 
-	bool checkYearValue(const std::string& yearStr);
-	bool checkMonthValue(const std::string& monthStr);
-	bool checkDayValue(const std::string& dayStr);
+	bool checkYearValue(const std::string& yearStr) const;
+	bool checkMonthValue(const std::string& monthStr) const;
+	bool checkDayValue(const std::string& dayStr) const;
 };

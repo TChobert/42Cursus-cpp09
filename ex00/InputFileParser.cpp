@@ -2,7 +2,9 @@
 
 InputFileParser::InputFileParser(void) {}
 
-InputFileParser::InputFileParser(const InputFileParser& other) {}
+InputFileParser::InputFileParser(const InputFileParser& other) {
+	(void)other;
+}
 
 InputFileParser& InputFileParser::operator=(const InputFileParser& other) {
 	if (this != &other) {}
@@ -11,7 +13,7 @@ InputFileParser& InputFileParser::operator=(const InputFileParser& other) {
 
 InputFileParser::~InputFileParser(void) {}
 
-bool InputFileParser::checkDayValue(const std::string& dayStr) {
+bool InputFileParser::checkDayValue(const std::string& dayStr) const {
 
 	if (dayStr.length() != 2)
 		return (false);
@@ -19,14 +21,19 @@ bool InputFileParser::checkDayValue(const std::string& dayStr) {
 	char *end = NULL;
 	double value = strtod(dayStr.c_str(), &end);
 
-	if (*end != '\0' || value <= 0 || value > 31)
+	if (*end != '\0' || value <= 0 || value > 31) {
+		if (value < 0)
+			std::cerr << "Error. Negative value. ";
+		else if (value > 31)
+			std::cerr  << "Error: too large value. ";
 		return (false);
+	}
 	
 	return (true);
 }
 
 
-bool InputFileParser::checkMonthValue(const std::string& monthStr) {
+bool InputFileParser::checkMonthValue(const std::string& monthStr) const {
 
 	if (monthStr.length() != 2)
 		return (false);
@@ -34,13 +41,17 @@ bool InputFileParser::checkMonthValue(const std::string& monthStr) {
 	char *end = NULL;
 	double value = strtod(monthStr.c_str(), &end);
 
-	if (*end != '\0' || value <= 0)
+	if (*end != '\0' || value <= 0) {
+		if (value < 0) {
+			std::cerr << "Error. Negative value. ";
+		}
 		return (false);
-	
+	}
+
 	return (true);
 }
 
-bool InputFileParser::checkYearValue(const std::string& yearStr) {
+bool InputFileParser::checkYearValue(const std::string& yearStr) const {
 
 	if (yearStr.length() != 4)
 		return (false);
@@ -48,12 +59,16 @@ bool InputFileParser::checkYearValue(const std::string& yearStr) {
 	char *end = NULL;
 	double value = strtod(yearStr.c_str(), &end);
 
-	if (*end != '\0' || value <= 0)
+	if (*end != '\0' || value <= 0) {
+		if (value < 0) {
+			std::cerr << "Error. Negative value. ";
+		}
 		return (false);
+	}
 	return (true);
 }
 
-bool InputFileParser::isValidDate(const std::string& dateStr) {
+bool InputFileParser::isValidDate(const std::string& dateStr) const {
 
 	std::string yearStr, monthStr, dayStr;
 	char sep1, sep2;
@@ -72,7 +87,7 @@ bool InputFileParser::isValidDate(const std::string& dateStr) {
 	return (true);
 }
 
-bool InputFileParser::isValidValue(const std::string& valueStr) {
+bool InputFileParser::isValidValue(const std::string& valueStr) const {
 
 	char *end = NULL;
 	double value = strtod(valueStr.c_str(), &end);

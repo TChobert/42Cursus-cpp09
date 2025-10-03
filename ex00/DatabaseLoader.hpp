@@ -11,11 +11,13 @@
 #include <fstream>
 #include <sstream>
 
+#define SPACE ' '
 
 class DatabaseLoader {
 
 	private:
 
+	void trimSpaces(std::string& str);
 	IParser& _DBparser;
 
 	public:

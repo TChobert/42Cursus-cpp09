@@ -13,6 +13,21 @@ DatabaseLoader& DatabaseLoader::operator=(const DatabaseLoader& other) {
 	return (*this);
 }
 
+void DatabaseLoader::trimSpaces(std::string& str) {
+
+	if (str.empty())
+		return;
+
+	size_t begin = str.find_first_not_of(' ');
+	size_t end   = str.find_last_not_of(' ');
+
+	if (begin == std::string::npos) {
+		str.clear();
+	} else {
+		str = str.substr(begin, end - begin + 1);
+	}
+}
+
 std::map<std::string, double> DatabaseLoader::loadDatabase(const std::string& file) {
 
 	std::map<std::string, double> DBcontent;
@@ -37,6 +52,8 @@ std::map<std::string, double> DatabaseLoader::loadDatabase(const std::string& fi
 
 		if (std::getline(ss, date, ',') && std::getline(ss, valueStr)) {
 
+			trimSpaces(date);
+			trimSpaces(valueStr);
 			if (!_DBparser.isValidDate(date) || !_DBparser.isValidValue(valueStr)) {
 				std::cerr << "Invalid line in DataBase ignored => " << currLine << std::endl; 
 			} else {

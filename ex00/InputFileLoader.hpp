@@ -16,6 +16,7 @@ class InputFileLoader {
 	private:
 
 	IParser& _parser;
+	void trimSpaces(std::string& str);
 
 	public:
 
