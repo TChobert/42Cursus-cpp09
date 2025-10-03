@@ -77,7 +77,7 @@ std::map<std::string, double> InputFileLoader::loadInput(const std::string& file
 		if (!res.second) {
 			std::cerr << "Warning: duplicate date in input file ignored => " << date << std::endl;
 		}
-    }
+	}
 	return (inputContent);
 }
 
