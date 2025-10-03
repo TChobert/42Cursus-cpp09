@@ -19,27 +19,26 @@ bool DatabaseParser::checkDayValue(const std::string& dayStr) const {
 		return (false);
 
 	char *end = NULL;
-	double value = strtod(dayStr.c_str(), &end);
+	long value = strtol(dayStr.c_str(), &end, 10);
 
 	if (*end != '\0' || value <= 0 || value > 31)
 		return (false);
-	
 	return (true);
 }
 
 bool DatabaseParser::checkMonthValue(const std::string& monthStr) const {
 
 	if (monthStr.length() != 2)
-		return (false);
+		return false;
 
 	char *end = NULL;
-	double value = strtod(monthStr.c_str(), &end);
+	long value = strtol(monthStr.c_str(), &end, 10);
 
-	if (*end != '\0' || value <= 0)
+	if (*end != '\0' || value <= 0 || value > 12)
 		return (false);
-	
 	return (true);
 }
+
 
 bool DatabaseParser::checkYearValue(const std::string& yearStr) const {
 
@@ -57,20 +56,15 @@ bool DatabaseParser::checkYearValue(const std::string& yearStr) const {
 bool DatabaseParser::isValidDate(const std::string& dateStr) const {
 
 	std::string yearStr, monthStr, dayStr;
-	char sep1, sep2;
-
 	std::stringstream ss(dateStr);
-	if (ss >> yearStr >> sep1 >> monthStr >> sep2 >> dayStr) {
 
-		if (sep1 != '-' || sep2 != '-')
+	if (std::getline(ss, yearStr, '-') && std::getline(ss, monthStr, '-') && std::getline(ss, dayStr)) {
+
+		if (!checkYearValue(yearStr) || !checkMonthValue(monthStr) || !checkDayValue(dayStr))
 			return (false);
-
-		if (!checkYearValue(yearStr) || !checkMonthValue(monthStr) ||!checkDayValue(dayStr))
-			return (false);
-	} else
-		return (false);
-
-	return (true);
+		return (true);
+	}
+	return (false);
 }
 
 bool DatabaseParser::isValidValue(const std::string& valueStr) const {

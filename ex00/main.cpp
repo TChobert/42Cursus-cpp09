@@ -7,6 +7,8 @@
 #include "InputFileParser.hpp"
 #include "ValuesCalculator.hpp"
 
+#define DATABASE_PATH "./data.csv"
+
 int main (int ac, char **av) {
 
 	if (ac != 2) {
@@ -24,7 +26,7 @@ int main (int ac, char **av) {
 
 	try {
 		inputFileValues = IFloader.loadInput(av[1]);
-		dataBaseValues = DBloader.loadDatabase("path to DB");
+		dataBaseValues = DBloader.loadDatabase(DATABASE_PATH);
 	}
 	catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
@@ -36,3 +38,6 @@ int main (int ac, char **av) {
 
 	return (EXIT_SUCCESS);
 }
+
+
+// DISPLAYS IN PARSER

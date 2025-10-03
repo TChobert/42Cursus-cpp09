@@ -43,28 +43,41 @@ std::map<std::string, double> InputFileLoader::loadInput(const std::string& file
 		if (currLine.empty())
 			continue;
 
-		std::stringstream ss(currLine);
-		std::string date;
-		std::string valueStr;
+		size_t sepPos = currLine.find('|');
+		if (sepPos == std::string::npos) {
+			std::cerr << "Invalid line in input ignored => " << currLine << std::endl;
+			continue;
+		}
 
-		if (std::getline(ss, date, '|') && std::getline(ss, valueStr)) {
-
-			trimSpaces(date);
-			trimSpaces(valueStr);
-			if (!_parser.isValidDate(date) || !_parser.isValidValue(valueStr)) {
+		if (currLine.find("date") != std::string::npos) {
+			trimSpaces(currLine);
+			if (currLine == "date | value")
+				continue;
+			else {
 				std::cerr << "Invalid line in input ignored => " << currLine << std::endl;
-			} else {
-
-				double value = std::strtod(valueStr.c_str(), NULL);
-				std::pair<std::map<std::string,double>::iterator, bool> res;
-				res = inputContent.insert(std::make_pair(date, value));
-
-				if (!res.second) {
-					std::cerr << "Warning: duplicate date in input file ignored => " << date << std::endl;
-				}
+				continue;
 			}
 		}
-	}
+
+		std::string date = currLine.substr(0, sepPos);
+		std::string valueStr = currLine.substr(sepPos + 1);
+
+		trimSpaces(date);
+		trimSpaces(valueStr);
+
+		if (!_parser.isValidDate(date) || !_parser.isValidValue(valueStr)) {
+			std::cerr << "Invalid line in input ignored => " << currLine << std::endl;
+			continue;
+		}
+
+		double value = std::strtod(valueStr.c_str(), NULL);
+		std::pair<std::map<std::string,double>::iterator, bool> res;
+		res = inputContent.insert(std::make_pair(date, value));
+
+		if (!res.second) {
+			std::cerr << "Warning: duplicate date in input file ignored => " << date << std::endl;
+		}
+    }
 	return (inputContent);
 }
 
