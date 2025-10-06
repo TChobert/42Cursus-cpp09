@@ -19,9 +19,11 @@ bool isNumber(const std::string& token) {
 	if (token.empty())
 		return false;
 
-	for (size_t i = 0; i < token.size(); ++i) {
+	size_t i = (token[0] == '-' || token[0] == '+');
+	while (i < token.size()) {
 		if (!std::isdigit(token[i]))
 			return (false);
+		++i;
 	}
 	return (true);
 }
