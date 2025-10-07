@@ -37,4 +37,3 @@ bool InputParser::parseInput(int argsNb, char **args, std::vector<int>& numbers)
 
 	return (true);
 }
-

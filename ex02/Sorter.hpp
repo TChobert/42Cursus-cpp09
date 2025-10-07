@@ -14,6 +14,7 @@ class Sorter {
 	Sorter& operator=(const Sorter& other);
 	~Sorter(void);
 
+	static std::vector<size_t> generateJacobsthalOrder(size_t size);
 	static std::vector<int> sortVector(std::vector<int>& valuesVec);
-	static void sortDeque(std::deque<int>& valuesDeq);
+//	static void sortDeque(std::deque<int>& valuesDeq);
 };

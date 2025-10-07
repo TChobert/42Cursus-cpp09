@@ -4,6 +4,7 @@
 #include <deque>
 
 #include "InputParser.hpp"
+#include "Sorter.hpp"
 
 int main(int ac, char **av) {
 
@@ -13,11 +14,13 @@ int main(int ac, char **av) {
 	}
 
 	std::vector<int> valuesVec;
+	std::vector<int> result;
 
-	if (!InputParser::parseInput(ac, av + 1, valuesVec))
+	if (!InputParser::parseInput(ac - 1, av + 1, valuesVec))
 		return (EXIT_FAILURE);
 
-	std::deque<int> valuesDeq(valuesVec.begin(), valuesVec.end());
+	result = Sorter::sortVector(valuesVec);
+	//std::deque<int> valuesDeq(valuesVec.begin(), valuesVec.end());
 
 	return (EXIT_SUCCESS);
 }
