@@ -17,7 +17,8 @@ class PMergeme {
 	~PMergeme(void);
 
 	static bool parseInput(int argsNb, char **args, std::vector<int>& numbers);
-	static std::vector<size_t> generateJacobsthalOrder(size_t size);
+	static std::vector<size_t> generateJacobsthalOrderVector(size_t size);
+	static std::deque<size_t> generateJacobsthalOrderDeque(size_t size);
 	static std::vector<int> sortVector(std::vector<int>& valuesVec);
-//	static void sortDeque(std::deque<int>& valuesDeq);
+	static std::deque<int> sortDeque(std::deque<int>& valuesDeq);
 };

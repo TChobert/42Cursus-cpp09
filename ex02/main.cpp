@@ -13,13 +13,16 @@ int main(int ac, char **av) {
 	}
 
 	std::vector<int> valuesVec;
-	std::vector<int> result;
 
 	if (!PMergeme::parseInput(ac - 1, av + 1, valuesVec))
 		return (EXIT_FAILURE);
 
-	result = PMergeme::sortVector(valuesVec);
-	//std::deque<int> valuesDeq(valuesVec.begin(), valuesVec.end());
+	std::deque<int> valuesDeq(valuesVec.begin(), valuesVec.end());
+	std::deque<int> resultDeq;
+	std::vector<int> resultVec;
+
+	resultVec = PMergeme::sortVector(valuesVec);
+	resultDeq = PMergeme::sortDeque(valuesDeq);
 
 	return (EXIT_SUCCESS);
 }
