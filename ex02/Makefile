@@ -30,8 +30,7 @@ endif
 ## SOURCES ##
 
 SRCS += main.cpp
-SRCS += Sorter.cpp
-SRCS += InputParser.cpp
+SRCS += PMergeme.cpp
 
 ## OBJECTS ##
 

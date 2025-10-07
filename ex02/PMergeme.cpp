@@ -1,19 +1,45 @@
-#include "Sorter.hpp"
+#include "PMergeme.hpp"
 
-Sorter::Sorter(void) {}
+PMergeme::PMergeme(void) {}
 
-Sorter::Sorter(const Sorter& other) {
+PMergeme::PMergeme(const PMergeme& other) {
 	(void)other;
 }
 
-Sorter& Sorter::operator=(const Sorter& other) {
+PMergeme& PMergeme::operator=(const PMergeme& other) {
 	if (this != &other) {}
 	return (*this);
 }
 
-Sorter::~Sorter(void) {}
+PMergeme::~PMergeme(void) {}
 
-std::vector<size_t> Sorter::generateJacobsthalOrder(size_t size)
+bool PMergeme::parseInput(int argsNb, char **args, std::vector<int>& numbers) {
+
+	std::set<int> seen;
+
+	for (int i = 0; i < argsNb; ++i) {
+
+		char* end;
+		long val = std::strtol(args[i], &end, 10);
+
+		if (*end != '\0' || val < 0 || val > std::numeric_limits<int>::max()) {
+			std::cerr << "Error" << std::endl;
+			return (false);
+		}
+
+		if (!seen.insert(static_cast<int>(val)).second) {
+			std::cerr << "Error" << std::endl;
+			return (false);
+		}
+
+		numbers.push_back(static_cast<int>(val));
+	}
+
+	return (true);
+}
+
+
+std::vector<size_t> PMergeme::generateJacobsthalOrder(size_t size)
 {
 	std::vector<size_t> sequence;
 	std::vector<size_t> order;
@@ -57,7 +83,7 @@ std::vector<size_t> Sorter::generateJacobsthalOrder(size_t size)
 	return order;
 }
 
-std::vector<int> Sorter::sortVector(std::vector<int>& valuesVec) {
+std::vector<int> PMergeme::sortVector(std::vector<int>& valuesVec) {
 
 	std::cout << "sortVector called with: ";
 	for (size_t i = 0; i < valuesVec.size(); ++i)
