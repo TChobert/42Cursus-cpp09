@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include <cctype>
+#include <limits>
 
 int printError(std::string message) {
 
@@ -12,6 +13,31 @@ int printError(std::string message) {
 	else
 		std::cerr << "Error" << std::endl;
 	return (EXIT_FAILURE);
+}
+
+bool willAddOverflow(int a, int b) {
+
+	return (b > 0 && a > std::numeric_limits<int>::max() - b) ||
+		(b < 0 && a < std::numeric_limits<int>::min() - b);
+}
+
+bool willSubOverflow(int a, int b) {
+
+	return (b > 0 && a < std::numeric_limits<int>::min() + b) ||
+		(b < 0 && a > std::numeric_limits<int>::max() + b);
+}
+
+bool willMulOverflow(int a, int b) {
+
+	if (a == 0 || b == 0)
+		return (false);
+	if (a == -1 && b == std::numeric_limits<int>::min())
+		return (true);
+	if (b == -1 && a == std::numeric_limits<int>::min())
+		return (true);
+
+	return (a > std::numeric_limits<int>::max() / b) ||
+		(a < std::numeric_limits<int>::min() / b);
 }
 
 bool isNumber(const std::string& token) {
@@ -50,11 +76,23 @@ int main(int ac, char **av) {
 
 			int b = stack.top(); stack.pop();
 			int a = stack.top(); stack.pop();
-			int res = 0;
+			double res = 0;
 
-			if (token == "+") res = a + b;
-			else if (token == "-") res = a - b;
-			else if (token == "*") res = a * b;
+			if (token == "+") {
+				if (willAddOverflow(a, b))
+					return printError("Overflow in addition.");
+				res = a + b;
+			}
+			else if (token == "-") {
+				if (willSubOverflow(a, b))
+					return printError("Overflow in subtraction.");
+				res = a - b;
+			}
+			else if (token == "*") {
+				if (willMulOverflow(a, b))
+					return printError("Overflow in multiplication.");
+				res = a * b;
+			}
 			else {
 				if (b == 0) {
 					return (printError("division by 0."));
@@ -62,8 +100,11 @@ int main(int ac, char **av) {
 				res = a / b;
 			}
 
+			if (res > std::numeric_limits<int>::max()) {
+				return (printError("Overflow in resultat."));
+			}
 			stack.push(res);
-		
+
 		} else if (isNumber(token)) {
 
 			int num = std::atoi(token.c_str());
@@ -81,5 +122,6 @@ int main(int ac, char **av) {
 	}
 
 	std::cout << stack.top() << std::endl;
-	return EXIT_SUCCESS;
+
+	return (EXIT_SUCCESS);
 }
