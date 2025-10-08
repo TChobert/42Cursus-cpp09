@@ -13,9 +13,9 @@ class DatabaseParser : public IParser {
 
 	private:
 
-	bool checkYearValue(const std::string& yearStr) const;
-	bool checkMonthValue(const std::string& yearStr) const;
-	bool checkDayValue(const std::string& yearStr) const;
+	bool checkYearValue(const std::string& yearStr, const std::string& monthStr, const std::string& dayStr) const;
+	bool checkMonthValue(const std::string& monthStr, const std::string& dayStr, bool isLeap) const;
+	bool checkDayValue(const std::string& dayStr, int month, bool isLeap) const;
 
 	public:
 
