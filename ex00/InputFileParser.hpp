@@ -22,7 +22,7 @@ class InputFileParser : public IParser {
 	InputFileParser& operator=(const InputFileParser& other);
 	~InputFileParser(void);
 
-	bool checkYearValue(const std::string& yearStr) const;
-	bool checkMonthValue(const std::string& monthStr) const;
-	bool checkDayValue(const std::string& dayStr) const;
+	bool checkYearValue(const std::string& yearStr, const std::string& monthStr, const std::string& dayStr) const;
+	bool checkMonthValue(const std::string& monthStr, const std::string& dayStr, bool isLeap) const;
+	bool checkDayValue(const std::string& dayStr, int month, bool isLeap) const;
 };

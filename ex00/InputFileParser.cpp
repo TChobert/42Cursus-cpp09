@@ -13,9 +13,9 @@ InputFileParser& InputFileParser::operator=(const InputFileParser& other) {
 
 InputFileParser::~InputFileParser(void) {}
 
-bool InputFileParser::checkDayValue(const std::string& dayStr) const {
+bool InputFileParser::checkDayValue(const std::string& dayStr, int month, bool isLeap) const {
 
-	if (dayStr.length() != 2)
+	if (dayStr.length() < 1)
 		return (false);
 
 	char *end = NULL;
@@ -23,10 +23,23 @@ bool InputFileParser::checkDayValue(const std::string& dayStr) const {
 
 	if (*end != '\0' || value <= 0 || value > 31)
 		return (false);
+	if (month == 2) {
+		if (isLeap == true) {
+			if (value > 29)
+				return (false);
+		} else {
+			if (value > 28)
+				return (false);
+		}
+	}
+	if (month == 4 || month == 6 || month == 9 || month == 11) {
+		if (value > 30)
+			return (false);
+	}
 	return (true);
 }
 
-bool InputFileParser::checkMonthValue(const std::string& monthStr) const {
+bool InputFileParser::checkMonthValue(const std::string& monthStr, const std::string& dayStr, bool isLeap) const {
 
 	if (monthStr.length() != 2)
 		return false;
@@ -36,16 +49,16 @@ bool InputFileParser::checkMonthValue(const std::string& monthStr) const {
 
 	if (*end != '\0' || value <= 0 || value > 12)
 		return (false);
-	return (true);
+	return (checkDayValue(dayStr, value, isLeap));
 }
 
-bool InputFileParser::checkYearValue(const std::string& yearStr) const {
+bool InputFileParser::checkYearValue(const std::string& yearStr, const std::string& monthStr, const std::string& dayStr) const {
 
 	if (yearStr.length() != 4)
 		return (false);
 
 	char *end = NULL;
-	double value = strtod(yearStr.c_str(), &end);
+	long value = strtol(yearStr.c_str(), &end, 10);
 
 	if (*end != '\0' || value <= 0) {
 		if (value < 0) {
@@ -53,7 +66,8 @@ bool InputFileParser::checkYearValue(const std::string& yearStr) const {
 		}
 		return (false);
 	}
-	return (true);
+	bool isLeap = (value % 4 == 0 && (value % 100 != 0 || value % 400 == 0));
+	return (checkMonthValue(monthStr, dayStr, isLeap));
 }
 
 bool InputFileParser::isValidDate(const std::string& dateStr) const {
@@ -63,7 +77,7 @@ bool InputFileParser::isValidDate(const std::string& dateStr) const {
 
 	if (std::getline(ss, yearStr, '-') && std::getline(ss, monthStr, '-') && std::getline(ss, dayStr)) {
 
-		if (!checkYearValue(yearStr) || !checkMonthValue(monthStr) || !checkDayValue(dayStr))
+		if (!checkYearValue(yearStr, monthStr, dayStr))
 			return (false);
 		return (true);
 	}
@@ -72,6 +86,7 @@ bool InputFileParser::isValidDate(const std::string& dateStr) const {
 
 bool InputFileParser::isValidValue(const std::string& valueStr) const {
 
+	if (valueStr.empty() == false);
 	char *end = NULL;
 	double value = strtod(valueStr.c_str(), &end);
 
