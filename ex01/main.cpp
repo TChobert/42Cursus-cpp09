@@ -74,8 +74,10 @@ int main(int ac, char **av) {
 				return (printError(""));
 			}
 
-			int b = stack.top(); stack.pop();
-			int a = stack.top(); stack.pop();
+			int b = stack.top();
+			stack.pop();
+			int a = stack.top();
+			stack.pop();
 			double res = 0;
 
 			if (token == "+") {
@@ -107,11 +109,14 @@ int main(int ac, char **av) {
 
 		} else if (isNumber(token)) {
 
-			int num = std::atoi(token.c_str());
-			if (num >= 10) {
+			long num = std::atol(token.c_str());
+			if (num > std::numeric_limits<int>::max() || num >= 10) {
 				return (printError(token + " is a too large number."));
 			}
-			stack.push(num);
+			if (num < std::numeric_limits<int>::min()) {
+				return (printError(token + " is a too small number."));
+			}
+			stack.push(static_cast<int>(num));
 		} else {
 			return (printError( token + " is not a number."));
 		}

@@ -38,8 +38,32 @@ bool PMergeme::parseInput(int argsNb, char **args, std::vector<int>& numbers) {
 	return (true);
 }
 
-std::vector<size_t> PMergeme::generateJacobsthalOrderVector(size_t size)
+void PMergeme::printSequenceDeq(const std::string& label, const std::deque<int>& deq)
 {
+	std::cout << label << ": ";
+	for (size_t i = 0; i < deq.size(); i++)
+		std::cout << deq[i] << " ";
+	std::cout << std::endl;
+}
+
+void PMergeme::printSequenceVec(const std::string& label, const std::vector<int>& vec)
+{
+	std::cout << label << ": ";
+	for (size_t i = 0; i < vec.size(); i++)
+		std::cout << vec[i] << " ";
+	std::cout << std::endl;
+}
+
+void PMergeme::printTime(const std::string& containerName, size_t size, double time)
+{
+	std::cout << std::fixed << std::setprecision(3);
+	std::cout << "Time to process a range of "
+			<< size << " elements with std::"
+			<< containerName << " : "
+			<< time << " us" << std::endl;
+}
+
+std::vector<size_t> PMergeme::generateJacobsthalOrderVector(size_t size) {
 	std::vector<size_t> sequence;
 	std::vector<size_t> order;
 	size_t j0 = 0;
@@ -74,16 +98,16 @@ std::vector<size_t> PMergeme::generateJacobsthalOrderVector(size_t size)
 			order.push_back(i);
 	}
 
-	std::cout << "Jacobsthal order for size " << size << " : ";
-	for (size_t i = 0; i < order.size(); ++i)
-		std::cout << order[i] << " ";
-	std::cout << std::endl;
+	// std::cout << "Jacobsthal order for size " << size << " : ";
+	// for (size_t i = 0; i < order.size(); ++i)
+	// 	std::cout << order[i] << " ";
+	// std::cout << std::endl;
 
 	return order;
 }
 
-std::deque<size_t> PMergeme::generateJacobsthalOrderDeque(size_t size)
-{
+std::deque<size_t> PMergeme::generateJacobsthalOrderDeque(size_t size) {
+
 	std::deque<size_t> sequence;
 	std::deque<size_t> order;
 	size_t j0 = 0;
@@ -118,24 +142,24 @@ std::deque<size_t> PMergeme::generateJacobsthalOrderDeque(size_t size)
 			order.push_back(i);
 	}
 
-	std::cout << "Jacobsthal order for size " << size << " : ";
-	for (size_t i = 0; i < order.size(); ++i)
-		std::cout << order[i] << " ";
-	std::cout << std::endl;
+//	std::cout << "Jacobsthal order for size " << size << " : ";
+	// for (size_t i = 0; i < order.size(); ++i)
+	// 	std::cout << order[i] << " ";
+	// std::cout << std::endl;
 
 	return order;
 }
 
 std::vector<int> PMergeme::sortVector(std::vector<int>& valuesVec) {
 
-	std::cout << std::endl;
-	std::cout << "sortVector called with: ";
-	for (size_t i = 0; i < valuesVec.size(); ++i)
-		std::cout << valuesVec[i] << " ";
-	std::cout << std::endl;
+//	std::cout << std::endl;
+//	std::cout << "sortVector called with: ";
+	// for (size_t i = 0; i < valuesVec.size(); ++i)
+	// 	std::cout << valuesVec[i] << " ";
+	// std::cout << std::endl;
 
 	if (valuesVec.size() <= 1) {
-		std::cout << "Base case reached with size " << valuesVec.size() << std::endl;
+	//	std::cout << "Base case reached with size " << valuesVec.size() << std::endl;
 		return valuesVec;
 	}
 
@@ -165,28 +189,27 @@ std::vector<int> PMergeme::sortVector(std::vector<int>& valuesVec) {
 		}
 	}
 
-	std::cout << "Pairs separated: mainChain = ";
-	for (size_t i = 0; i < mainChain.size(); ++i)
-		std::cout << mainChain[i] << " ";
-	std::cout << ", pendingValues = ";
-	for (size_t i = 0; i < pendingValues.size(); ++i)
-		std::cout << pendingValues[i] << " ";
-	std::cout << std::endl;
+//	std::cout << "Pairs separated: mainChain = ";
+	// for (size_t i = 0; i < mainChain.size(); ++i)
+	// 	std::cout << mainChain[i] << " ";
+	// std::cout << ", pendingValues = ";
+	// for (size_t i = 0; i < pendingValues.size(); ++i)
+	// 	std::cout << pendingValues[i] << " ";
+	// std::cout << std::endl;
 
 	if (pairsNb > 0) {
-		std::cout << "Recursively sorting mainChain..." << std::endl;
+//		std::cout << "Recursively sorting mainChain..." << std::endl;
 		mainChain = sortVector(mainChain);
-		std::cout << "mainChain after recursion: ";
-		for (size_t i = 0; i < mainChain.size(); ++i)
-			std::cout << mainChain[i] << " ";
-		std::cout << std::endl;
+		// std::cout << "mainChain after recursion: ";
+		// for (size_t i = 0; i < mainChain.size(); ++i)
+		// 	std::cout << mainChain[i] << " ";
+		// std::cout << std::endl;
 	}
 
 	result = mainChain;
 
 	std::vector<size_t> order = generateJacobsthalOrderVector(pendingValues.size());
-	for (size_t i = 0; i < order.size(); ++i)
-	{
+	for (size_t i = 0; i < order.size(); ++i) {
 		size_t idx = order[i];
 		if (idx >= pendingValues.size())
 			continue;
@@ -195,30 +218,29 @@ std::vector<int> PMergeme::sortVector(std::vector<int>& valuesVec) {
 		std::vector<int>::iterator insertPos =
 			std::lower_bound(result.begin(), result.end(), value);
 		result.insert(insertPos, value);
-		std::cout << "Inserting pendingValues[" << idx << "] = " << value << " -> result = ";
-		for (size_t j = 0; j < result.size(); ++j)
-			std::cout << result[j] << " ";
-		std::cout << std::endl;
+//		std::cout << "Inserting pendingValues[" << idx << "] = " << value << " -> result = ";
+	// 	for (size_t j = 0; j < result.size(); ++j)
+	// 		std::cout << result[j] << " ";
+	// 	std::cout << std::endl;
 	}
 
-	std::cout << "Returning result: ";
-	for (size_t i = 0; i < result.size(); ++i)
-		std::cout << result[i] << " ";
-	std::cout << std::endl << std::endl;
+	// std::cout << "Returning result: ";
+	// for (size_t i = 0; i < result.size(); ++i)
+	// 	std::cout << result[i] << " ";
+	// std::cout << std::endl << std::endl;
 
 	return result;
 }
 
 std::deque<int> PMergeme::sortDeque(std::deque<int>& valuesDeq) {
 
-	std::cout << std::endl;
-	std::cout << "sortDeque called with: ";
-	for (size_t i = 0; i < valuesDeq.size(); ++i)
-		std::cout << valuesDeq[i] << " ";
-	std::cout << std::endl;
+//	std::cout << "sortDeque called with: ";
+	// for (size_t i = 0; i < valuesDeq.size(); ++i)
+	// 	std::cout << valuesDeq[i] << " ";
+	// std::cout << std::endl;
 
 	if (valuesDeq.size() <= 1) {
-		std::cout << "Base case reached with size " << valuesDeq.size() << std::endl;
+//		std::cout << "Base case reached with size " << valuesDeq.size() << std::endl;
 		return valuesDeq;
 	}
 
@@ -248,21 +270,21 @@ std::deque<int> PMergeme::sortDeque(std::deque<int>& valuesDeq) {
 		}
 	}
 
-	std::cout << "Pairs separated: mainChain = ";
-	for (size_t i = 0; i < mainChain.size(); ++i)
-		std::cout << mainChain[i] << " ";
-	std::cout << ", pendingValues = ";
-	for (size_t i = 0; i < pendingValues.size(); ++i)
-		std::cout << pendingValues[i] << " ";
-	std::cout << std::endl;
+	// std::cout << "Pairs separated: mainChain = ";
+	// for (size_t i = 0; i < mainChain.size(); ++i)
+	// 	std::cout << mainChain[i] << " ";
+	// std::cout << ", pendingValues = ";
+	// for (size_t i = 0; i < pendingValues.size(); ++i)
+	// 	std::cout << pendingValues[i] << " ";
+	// std::cout << std::endl;
 
 	if (pairsNb > 0) {
-		std::cout << "Recursively sorting mainChain..." << std::endl;
+	//	std::cout << "Recursively sorting mainChain..." << std::endl;
 		mainChain = sortDeque(mainChain);
-		std::cout << "mainChain after recursion: ";
-		for (size_t i = 0; i < mainChain.size(); ++i)
-			std::cout << mainChain[i] << " ";
-		std::cout << std::endl;
+	//	std::cout << "mainChain after recursion: ";
+		// for (size_t i = 0; i < mainChain.size(); ++i)
+		// 	std::cout << mainChain[i] << " ";
+		// std::cout << std::endl;
 	}
 
 	result = mainChain;
@@ -278,16 +300,16 @@ std::deque<int> PMergeme::sortDeque(std::deque<int>& valuesDeq) {
 		std::deque<int>::iterator insertPos =
 			std::lower_bound(result.begin(), result.end(), value);
 		result.insert(insertPos, value);
-		std::cout << "Inserting pendingValues[" << idx << "] = " << value << " -> result = ";
-		for (size_t j = 0; j < result.size(); ++j)
-			std::cout << result[j] << " ";
-		std::cout << std::endl;
+//		std::cout << "Inserting pendingValues[" << idx << "] = " << value << " -> result = ";
+		// for (size_t j = 0; j < result.size(); ++j)
+		// 	std::cout << result[j] << " ";
+		// std::cout << std::endl;
 	}
 
-	std::cout << "Returning result: ";
-	for (size_t i = 0; i < result.size(); ++i)
-		std::cout << result[i] << " ";
-	std::cout << std::endl << std::endl;
+//	std::cout << "Returning result: ";
+	// for (size_t i = 0; i < result.size(); ++i)
+	// 	std::cout << result[i] << " ";
+	// std::cout << std::endl << std::endl;
 
 	return result;
 }

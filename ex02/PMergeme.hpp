@@ -6,6 +6,7 @@
 #include <set>
 #include <algorithm>
 #include <limits>
+#include <iomanip>
 
 class PMergeme {
 
@@ -16,6 +17,9 @@ class PMergeme {
 	PMergeme& operator=(const PMergeme& other);
 	~PMergeme(void);
 
+	static void printSequenceDeq(const std::string& label, const std::deque<int>& deq);
+	static void printSequenceVec(const std::string& label, const std::vector<int>& vec);
+	static void printTime(const std::string& containerName, size_t size, double time);
 	static bool parseInput(int argsNb, char **args, std::vector<int>& numbers);
 	static std::vector<size_t> generateJacobsthalOrderVector(size_t size);
 	static std::deque<size_t> generateJacobsthalOrderDeque(size_t size);
