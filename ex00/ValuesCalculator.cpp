@@ -34,6 +34,6 @@ void ValuesCalculator::calculateValues(const std::map<std::string, double>& data
 		double result = amount * btcValue;
 
 		std::cout << std::fixed << std::setprecision(2);
-		std::cout << BRIGHT_YELLOW << date << " => " << amount << " BTC = " << result << RESET << std::endl;
+		std::cout << BRIGHT_YELLOW << date << " => " << amount << " = " << result << RESET << std::endl;
 	}
 }

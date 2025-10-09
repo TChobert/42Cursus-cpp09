@@ -2,14 +2,10 @@
 
 DatabaseLoader::DatabaseLoader(IParser& DBparser) : _DBparser(DBparser) {}
 
-DatabaseLoader::DatabaseLoader(const DatabaseLoader& other) : _DBparser(other._DBparser) {}
-
 DatabaseLoader::~DatabaseLoader(void) {}
 
 DatabaseLoader& DatabaseLoader::operator=(const DatabaseLoader& other) {
-	if (this != &other) {
-		this->_DBparser = other._DBparser;
-	}
+	if (this != &other) {}
 	return (*this);
 }
 
@@ -67,6 +63,9 @@ std::map<std::string, double> DatabaseLoader::loadDatabase(const std::string& fi
 				}
 			}
 		}
+	}
+	if (DBcontent.empty()) {
+		throw std::runtime_error("Error: Empty data base provided.");
 	}
 	return (DBcontent);
 }

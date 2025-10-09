@@ -8,6 +8,8 @@
 #include "ValuesCalculator.hpp"
 
 #define DATABASE_PATH "./data.csv"
+#define BRIGHT_GREEN "\033[92m"
+#define RESET "\033[0m"
 
 int main (int ac, char **av) {
 

@@ -12,14 +12,14 @@ class InputFileParser : public IParser {
 
 	private:
 
+	InputFileParser(const InputFileParser& other);
+	InputFileParser& operator=(const InputFileParser& other);
 	bool isValidDate(const std::string& dateStr) const;
 	bool isValidValue(const std::string& value) const;
 
 	public:
 
 	InputFileParser(void);
-	InputFileParser(const InputFileParser& other);
-	InputFileParser& operator=(const InputFileParser& other);
 	~InputFileParser(void);
 
 	bool checkYearValue(const std::string& yearStr, const std::string& monthStr, const std::string& dayStr) const;

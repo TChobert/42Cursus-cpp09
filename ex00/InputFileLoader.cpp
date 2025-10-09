@@ -2,12 +2,8 @@
 
 InputFileLoader::InputFileLoader(IParser& parser) : _parser(parser) {}
 
-InputFileLoader::InputFileLoader(const InputFileLoader& other) : _parser(other._parser) {}
-
 InputFileLoader& InputFileLoader::operator=(const InputFileLoader& other) {
-	if (this != &other) {
-		this->_parser = other._parser;
-	}
+	if (this != &other) {}
 	return (*this);
 }
 

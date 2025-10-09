@@ -22,7 +22,7 @@ bool PmergeMe::parseInput(int argsNb, char **args, std::vector<int>& numbers) {
 		char* end;
 		long val = std::strtol(args[i], &end, 10);
 
-		if (*end != '\0' || val < 0 || val > std::numeric_limits<int>::max()) {
+		if (*end != '\0' || val < 0 || val > std::numeric_limits<int>::max() || val < std::numeric_limits<int>::min()) {
 			std::cerr << "Error" << std::endl;
 			return (false);
 		}
@@ -69,7 +69,6 @@ std::vector<size_t> PmergeMe::generateJacobsthalOrderVector(size_t size) {
 	size_t j0 = 0;
 	size_t j1 = 1;
 
-	// Générer les nombres de Jacobsthal <= size (éviter doublons)
 	while (j1 <= size)
 	{
 		if (j1 > 0 && std::find(sequence.begin(), sequence.end(), j1) == sequence.end())
@@ -79,7 +78,6 @@ std::vector<size_t> PmergeMe::generateJacobsthalOrderVector(size_t size) {
 		j1 = next;
 	}
 
-	// Convertir J(k) (1-based) en indices 0-based et marquer visités
 	std::vector<int> visited(size, 0);
 	for (size_t i = 0; i < sequence.size(); ++i)
 	{
@@ -91,7 +89,6 @@ std::vector<size_t> PmergeMe::generateJacobsthalOrderVector(size_t size) {
 		}
 	}
 
-	// Compléter avec les indices manquants
 	for (size_t i = 0; i < size; ++i)
 	{
 		if (!visited[i])
@@ -113,7 +110,6 @@ std::deque<size_t> PmergeMe::generateJacobsthalOrderDeque(size_t size) {
 	size_t j0 = 0;
 	size_t j1 = 1;
 
-	// Générer les nombres de Jacobsthal <= size (éviter doublons)
 	while (j1 <= size)
 	{
 		if (j1 > 0 && std::find(sequence.begin(), sequence.end(), j1) == sequence.end())
@@ -123,7 +119,6 @@ std::deque<size_t> PmergeMe::generateJacobsthalOrderDeque(size_t size) {
 		j1 = next;
 	}
 
-	// Convertir J(k) (1-based) en indices 0-based et marquer visités
 	std::vector<int> visited(size, 0);
 	for (size_t i = 0; i < sequence.size(); ++i)
 	{
@@ -135,7 +130,6 @@ std::deque<size_t> PmergeMe::generateJacobsthalOrderDeque(size_t size) {
 		}
 	}
 
-	// Compléter avec les indices manquants
 	for (size_t i = 0; i < size; ++i)
 	{
 		if (!visited[i])

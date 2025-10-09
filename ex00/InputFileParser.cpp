@@ -24,7 +24,6 @@ bool InputFileParser::checkDayValue(const std::string& dayStr, int month, bool i
 	if (*end != '\0' || value <= 0)
 		return (false);
 	if  (value > 31) {
-		std::cerr << "Error. A month cannot have more than 31 days. ";
 		return (false);
 	}
 	if (month == 2) {
@@ -33,7 +32,6 @@ bool InputFileParser::checkDayValue(const std::string& dayStr, int month, bool i
 				return (false);
 		} else {
 			if (value > 28) {
-				std::cerr << "Error: a non leap year cannot have a february 29th. ";
 				return (false);
 			}
 		}
@@ -58,7 +56,6 @@ bool InputFileParser::checkMonthValue(const std::string& monthStr, const std::st
 	if (*end != '\0' || value <= 0)
 		return (false);
 	if (value > 12) {
-		std::cerr << "Error. A year cannot have more than 12 months. ";
 		return (false);
 	}
 	return (checkDayValue(dayStr, value, isLeap));
@@ -103,7 +100,16 @@ bool InputFileParser::isValidValue(const std::string& valueStr) const {
 	char *end = NULL;
 	double value = strtod(valueStr.c_str(), &end);
 
-	if (*end != '\0' || value < 0 || value > 1000) {
+	if (*end != '\0') {
+		std::cerr << "Error: bad input => ";
+		return (false);
+	}
+	if (value < 0) {
+		std::cerr << "Error: not a positive number. ";
+		return (false);
+	}
+	if (value > 1000) {
+		std::cerr << "Error: too large number. ";
 		return (false);
 	}
 	return (true);

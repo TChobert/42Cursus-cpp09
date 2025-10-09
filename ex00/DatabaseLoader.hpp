@@ -17,14 +17,14 @@ class DatabaseLoader {
 
 	private:
 
-	void trimSpaces(std::string& str);
 	IParser& _DBparser;
+
+	DatabaseLoader& operator=(const DatabaseLoader& other);
+	void trimSpaces(std::string& str);
 
 	public:
 
 	DatabaseLoader(IParser& DBparser);
-	DatabaseLoader(const DatabaseLoader& other);
-	DatabaseLoader& operator=(const DatabaseLoader& other);
 	~DatabaseLoader(void);
 
 	std::map<std::string, double> loadDatabase(const std::string& file);

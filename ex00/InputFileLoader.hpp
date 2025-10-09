@@ -16,13 +16,13 @@ class InputFileLoader {
 	private:
 
 	IParser& _parser;
+
+	InputFileLoader& operator=(const InputFileLoader& other);
 	void trimSpaces(std::string& str);
 
 	public:
 
 	InputFileLoader(IParser& parser);
-	InputFileLoader(const InputFileLoader& other);
-	InputFileLoader& operator=(const InputFileLoader& other);
 	~InputFileLoader(void);
 
 	std::map<std::string, double> loadInput(const std::string& file);
