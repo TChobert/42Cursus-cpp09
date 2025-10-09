@@ -4,7 +4,7 @@
 #include <deque>
 #include <sys/time.h>
 
-#include "PMergeme.hpp"
+#include "PmergeMe.hpp"
 
 long getTimeMicroseconds()
 {
@@ -22,27 +22,27 @@ int main(int ac, char **av) {
 
 	std::vector<int> valuesVec;
 
-	if (!PMergeme::parseInput(ac - 1, av + 1, valuesVec))
+	if (!PmergeMe::parseInput(ac - 1, av + 1, valuesVec))
 		return (EXIT_FAILURE);
 
-	PMergeme::printSequenceVec("Before", valuesVec);
+	PmergeMe::printSequenceVec("Before", valuesVec);
 	std::deque<int> valuesDeq(valuesVec.begin(), valuesVec.end());
 	std::deque<int> resultDeq;
 	std::vector<int> resultVec;
 
 	long startVec = getTimeMicroseconds();
-	resultVec = PMergeme::sortVector(valuesVec);
+	resultVec = PmergeMe::sortVector(valuesVec);
 	long endVec = getTimeMicroseconds();
 	double timeVec = static_cast<double>(endVec - startVec);
 
 	long startDeq = getTimeMicroseconds();
-	resultDeq = PMergeme::sortDeque(valuesDeq);
+	resultDeq = PmergeMe::sortDeque(valuesDeq);
 	long endDeq = getTimeMicroseconds();
 	double timeDeq = static_cast<double>(endDeq - startDeq);
 
-	PMergeme::printSequenceVec("After", resultVec);
-	PMergeme::printTime("vector", resultVec.size(), timeVec);
-	PMergeme::printTime("deque", resultDeq.size(), timeDeq);
+	PmergeMe::printSequenceVec("After", resultVec);
+	PmergeMe::printTime("vector", resultVec.size(), timeVec);
+	PmergeMe::printTime("deque", resultDeq.size(), timeDeq);
 
 	return (EXIT_SUCCESS);
 }

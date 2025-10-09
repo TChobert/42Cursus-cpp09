@@ -8,14 +8,14 @@
 #include <limits>
 #include <iomanip>
 
-class PMergeme {
+class PmergeMe {
 
 	public:
 
-	PMergeme(void);
-	PMergeme(const PMergeme& other);
-	PMergeme& operator=(const PMergeme& other);
-	~PMergeme(void);
+	PmergeMe(void);
+	PmergeMe(const PmergeMe& other);
+	PmergeMe& operator=(const PmergeMe& other);
+	~PmergeMe(void);
 
 	static void printSequenceDeq(const std::string& label, const std::deque<int>& deq);
 	static void printSequenceVec(const std::string& label, const std::vector<int>& vec);

@@ -8,7 +8,7 @@ RESET =\033[0m
 
 ## TARGET ##
 
-NAME := PMergeme
+NAME := PmergeMe
 
 ## COMPILATION ##
 
@@ -30,7 +30,7 @@ endif
 ## SOURCES ##
 
 SRCS += main.cpp
-SRCS += PMergeme.cpp
+SRCS += PmergeMe.cpp
 
 ## OBJECTS ##
 
@@ -42,7 +42,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)PMergme compiled!$(RESET)"
+	@echo "$(GREEN)PmergMe compiled!$(RESET)"
 
 $(OBJS): %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@

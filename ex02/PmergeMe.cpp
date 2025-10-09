@@ -1,19 +1,19 @@
-#include "PMergeme.hpp"
+#include "PmergeMe.hpp"
 
-PMergeme::PMergeme(void) {}
+PmergeMe::PmergeMe(void) {}
 
-PMergeme::PMergeme(const PMergeme& other) {
+PmergeMe::PmergeMe(const PmergeMe& other) {
 	(void)other;
 }
 
-PMergeme& PMergeme::operator=(const PMergeme& other) {
+PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 	if (this != &other) {}
 	return (*this);
 }
 
-PMergeme::~PMergeme(void) {}
+PmergeMe::~PmergeMe(void) {}
 
-bool PMergeme::parseInput(int argsNb, char **args, std::vector<int>& numbers) {
+bool PmergeMe::parseInput(int argsNb, char **args, std::vector<int>& numbers) {
 
 	std::set<int> seen;
 
@@ -38,7 +38,7 @@ bool PMergeme::parseInput(int argsNb, char **args, std::vector<int>& numbers) {
 	return (true);
 }
 
-void PMergeme::printSequenceDeq(const std::string& label, const std::deque<int>& deq)
+void PmergeMe::printSequenceDeq(const std::string& label, const std::deque<int>& deq)
 {
 	std::cout << label << ": ";
 	for (size_t i = 0; i < deq.size(); i++)
@@ -46,7 +46,7 @@ void PMergeme::printSequenceDeq(const std::string& label, const std::deque<int>&
 	std::cout << std::endl;
 }
 
-void PMergeme::printSequenceVec(const std::string& label, const std::vector<int>& vec)
+void PmergeMe::printSequenceVec(const std::string& label, const std::vector<int>& vec)
 {
 	std::cout << label << ": ";
 	for (size_t i = 0; i < vec.size(); i++)
@@ -54,7 +54,7 @@ void PMergeme::printSequenceVec(const std::string& label, const std::vector<int>
 	std::cout << std::endl;
 }
 
-void PMergeme::printTime(const std::string& containerName, size_t size, double time)
+void PmergeMe::printTime(const std::string& containerName, size_t size, double time)
 {
 	std::cout << std::fixed << std::setprecision(3);
 	std::cout << "Time to process a range of "
@@ -63,7 +63,7 @@ void PMergeme::printTime(const std::string& containerName, size_t size, double t
 			<< time << " us" << std::endl;
 }
 
-std::vector<size_t> PMergeme::generateJacobsthalOrderVector(size_t size) {
+std::vector<size_t> PmergeMe::generateJacobsthalOrderVector(size_t size) {
 	std::vector<size_t> sequence;
 	std::vector<size_t> order;
 	size_t j0 = 0;
@@ -106,7 +106,7 @@ std::vector<size_t> PMergeme::generateJacobsthalOrderVector(size_t size) {
 	return order;
 }
 
-std::deque<size_t> PMergeme::generateJacobsthalOrderDeque(size_t size) {
+std::deque<size_t> PmergeMe::generateJacobsthalOrderDeque(size_t size) {
 
 	std::deque<size_t> sequence;
 	std::deque<size_t> order;
@@ -150,7 +150,7 @@ std::deque<size_t> PMergeme::generateJacobsthalOrderDeque(size_t size) {
 	return order;
 }
 
-std::vector<int> PMergeme::sortVector(std::vector<int>& valuesVec) {
+std::vector<int> PmergeMe::sortVector(std::vector<int>& valuesVec) {
 
 //	std::cout << std::endl;
 //	std::cout << "sortVector called with: ";
@@ -232,7 +232,7 @@ std::vector<int> PMergeme::sortVector(std::vector<int>& valuesVec) {
 	return result;
 }
 
-std::deque<int> PMergeme::sortDeque(std::deque<int>& valuesDeq) {
+std::deque<int> PmergeMe::sortDeque(std::deque<int>& valuesDeq) {
 
 //	std::cout << "sortDeque called with: ";
 	// for (size_t i = 0; i < valuesDeq.size(); ++i)
